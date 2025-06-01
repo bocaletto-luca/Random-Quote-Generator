@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Random Quote Generator</title>
+  <style>
+    /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .quote {
+      font-size: 1.5rem;
+      color: #555;
+      margin: 20px 0;
+      min-height: 80px;
+      line-height: 1.5;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .info {
+      color: #a00;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Random Quote Generator</h1>
+    <div id="quoteDisplay" class="quote">
+      Click the button below to get an inspiring quote!
+    </div>
+    <button id="getQuoteBtn">Get Quote</button>
+    <div id="errorMsg" class="info"></div>
+  </div>
+
+  <script>
+    "use strict";
+
+    document.addEventListener("DOMContentLoaded", function() {
+      const quoteDisplay = document.getElementById("quoteDisplay");
+      const getQuoteBtn = document.getElementById("getQuoteBtn");
+      const errorMsg = document.getElementById("errorMsg");
+
+      // Using thingproxy.freeboard.io as a proxy to bypass CORS restrictions
+      const proxyUrl = "https://thingproxy.freeboard.io/fetch/";
+      const targetUrl = "https://zenquotes.io/api/random";
+
+      // Function to fetch a random quote from ZenQuotes API via the proxy
+      function fetchQuote() {
+        errorMsg.textContent = ""; // Clear previous error messages
+        fetch(proxyUrl + targetUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (Array.isArray(data) && data.length > 0) {
+              const quoteData = data[0];
+              // Expected properties: 'q' for quote text and 'a' for author
+              quoteDisplay.innerHTML = `<p>"${quoteData.q}"</p><p>&mdash; ${quoteData.a}</p>`;
+            } else {
+              throw new Error("Invalid data format received");
+            }
+          })
+          .catch(error => {
+            quoteDisplay.textContent = "Unable to fetch quote. Please try again.";
+            errorMsg.textContent = error.message;
+            console.error("Error fetching the quote:", error);
+          });
+      }
+
+      // Fetch a new quote when the button is clicked
+      getQuoteBtn.addEventListener("click", fetchQuote);
+      // Optionally, fetch a quote when the page loads
+      fetchQuote();
+    });
+  </script>
+</body>
+</html>
