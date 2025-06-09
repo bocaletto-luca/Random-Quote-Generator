@@ -1,0 +1,78 @@
+ /* Basic Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      text-align: center;
+      flex: 1;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .quote {
+      font-size: 1.5rem;
+      color: #555;
+      margin: 20px 0;
+      min-height: 80px;
+      line-height: 1.5;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    hr {
+      margin: 30px 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+    #savedList {
+      list-style: none;
+      text-align: left;
+      max-height: 200px;
+      overflow-y: auto;
+      margin: 10px 0;
+      padding-left: 10px;
+    }
+    #savedList li {
+      padding: 5px;
+      border-bottom: 1px solid #eee;
+      font-size: 1rem;
+      color: #444;
+    }
+    .exportButtons {
+      margin-top: 15px;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      margin-top: 20px;
+      background-color: #fff;
+    }
